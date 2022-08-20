@@ -7,11 +7,11 @@ import { muiTheme } from '../lib/mui/theme';
 import { useUICtx } from '../context/ui.context';
 // comp
 import { Layout } from './layout';
+import { Dashboard } from './dashboard';
 
 export const App = () => {
 
   const { uiCtx } = useUICtx();
-
 
   const theme = useMemo(() => {
     return muiTheme({ mode: uiCtx.mode })
@@ -27,10 +27,8 @@ export const App = () => {
         }} >
 
           <Layout>
-
-            <div>
-              abc
-            </div>
+            
+            <Dashboard />
 
           </Layout>
 

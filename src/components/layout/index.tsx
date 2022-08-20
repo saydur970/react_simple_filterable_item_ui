@@ -14,7 +14,8 @@ export const Layout: FC<IComp> = ({children}) => {
 
       <main
         style={{
-          padding: '0 4rem'
+          padding: '0 4rem',
+          minHeight: '100vh'
         }}
       >
         {children}

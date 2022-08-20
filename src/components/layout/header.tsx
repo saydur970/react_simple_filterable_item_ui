@@ -50,7 +50,7 @@ export const Header = () => {
 
   return (
     <AppBar position="static"
-      sx={{ backgroundColor: theme.palette.custom.main }}
+      sx={{ backgroundColor: theme.palette.custom.main, marginBottom: '2rem' }}
     >
 
       <Container maxWidth="xl">

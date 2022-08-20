@@ -44,9 +44,12 @@ export const muiTheme = ({ mode }: ITheme) => {
 
       // primary color
       primary: {
-        main: '#9c27b0',
-        light: '#ba68c8',
-        dark: '#7b1fa2'
+        main: '#564FB1',
+        light: '#887be4',
+        dark: '#504a91'
+        // main: '#9c27b0',
+        // light: '#ba68c8',
+        // dark: '#7b1fa2'
       },
 
       custom: {
@@ -65,6 +68,14 @@ export const muiTheme = ({ mode }: ITheme) => {
         styleOverrides: {
           root: {
             backgroundColor: mode === 'dark' ? '#17181B': '#F7F7F7'
+          }
+        }
+      },
+
+      MuiInput: {
+        styleOverrides: {
+          root: {
+            fontSize: '1.3rem'
           }
         }
       }
