@@ -1,5 +1,5 @@
-import { FC, Fragment } from 'react';
-import { Grid, Card, CardContent, Typography, CardActions, Button, IconButton } 
+import { FC } from 'react';
+import { Grid, Card, CardContent, Typography, IconButton } 
 from '@mui/material';
 import classes from './profileItem.module.css';
 import { Typo } from '../../shared/typography';
@@ -42,9 +42,6 @@ interface socialIconListParam {
 }
 
 interface ItextWithKeyValueRender {
-  // category: string;
-  // gender: string;
-  // follower: number;
   key: string;
   value: string;
 }
@@ -148,7 +145,7 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
             {/* ======================= render social icons ======================= */}
             <Grid item xs={12} container justifyContent="center">
 
-              <Grid xs={6} container justifyContent="center" >
+              <Grid item xs={6} container justifyContent="center" >
                 {
                   item.socialMedia.facebook &&
                   socialIcon({ type: 'fb', link: item.socialMedia.facebook })

@@ -39,14 +39,4 @@ export const ProfileList: FC<IComp> = ({ list, status }) => {
     </div>
   )
 
-  // return (
-  //   <Grid item xs={12} container justifyContent="space-between" spacing={2} >
-
-  //     {
-  //       list.map(el => <ProfileItem key={el.id} item={el} />)
-  //     }
-
-  //   </Grid>
-  // )
-
 };
