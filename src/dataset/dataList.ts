@@ -46,28 +46,28 @@ export interface ty_dataItem {
 
 export const dataList: ty_dataItem[] = [
   
-  {
-    id: 'user_01',
-    name: '',
-    image: '',
-    location: {
-      city: '',
-      country: 'Croatia'
-    },
-    joined: "2019-03-25",
-    totalFollower: 1250,
-    industry: {
-      name: 'Sport',
-      category: 'Football'
-    },
-    gender: 'Male',
-    socialMedia: {
-      facebook: 'https://www.facebook.com/',
-      instagram: 'https://www.instagram.com/',
-      linkedin: 'https://www.linkedin.com/',
-      twitter: 'https://twitter.com/'
-    }
-  },
+  // {
+  //   id: 'user_01',
+  //   name: '',
+  //   image: '',
+  //   location: {
+  //     city: '',
+  //     country: 'Croatia'
+  //   },
+  //   joined: "2019-03-25",
+  //   totalFollower: 1250,
+  //   industry: {
+  //     name: 'Sport',
+  //     category: 'Football'
+  //   },
+  //   gender: 'Male',
+  //   socialMedia: {
+  //     facebook: 'https://www.facebook.com/',
+  //     instagram: 'https://www.instagram.com/',
+  //     linkedin: 'https://www.linkedin.com/',
+  //     twitter: 'https://twitter.com/'
+  //   }
+  // },
   {
     id: 'user_01',
     name: "George Lincoln D'Costa",
