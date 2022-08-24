@@ -1,45 +1,46 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import { useState } from 'react';
+import { AppBar, Grid, Box, IconButton, Typography, Menu, Container, 
+  Button, Tooltip, MenuItem} from '@mui/material';
+  import { useTheme } from '@mui/material';
+  import { getURLPath } from '../../utils/getUrlPath';
+  import { themeColor } from '../../lib/mui/color';
+// context
+import { useUICtx } from '../../context/ui.context';
+// comp
+import { Typo } from '../shared/typography';
+// icons
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useUICtx } from '../../context/ui.context';
-import { useTheme } from '@mui/material';
 
-const pages = ['Dashboard', 'Campaign', 'Hypesocial', 'Insights'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+type TPageItem = {name: string; url: string};
+
+const PAGES: TPageItem[] = [
+  { name: 'Dashboard', url: '/' },
+  { name: 'Campaign', url: '/campaign' },
+  { name: 'Hypesocial', url: '/hypesocial' },
+  { name: 'Insights', url: '/insights' }
+];
+
+const isPathActive = ({url}: TPageItem): boolean => {
+  const currentPath = getURLPath();
+  return url === currentPath;
+}
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const { setUICtx } = useUICtx();
   const theme = useTheme();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const bgModeHandler = () => {
@@ -54,135 +55,167 @@ export const Header = () => {
     >
 
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+
+        <Grid container>
 
           {/* ====================== icon with company name ====================== */}
-          <AdbIcon sx={{ display: { xs: 'flex', color: theme.palette.txt.main }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              color: theme.palette.txt.main,
-              textDecoration: 'none',
-            }}
+          <Grid item xs={5} sm={3} md={3} container alignItems="center"
+            sx={{justifyContent: { xs: 'flex-start', sm: 'center' }}}
           >
-            HYPERSCOUT
-          </Typography>
+
+            <AdbIcon sx={{ 
+              display: { xs: 'flex', color: theme.palette.txt.main }, mr: 1 
+              }} 
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                color: theme.palette.txt.main,
+                textDecoration: 'none',
+              }}
+            >
+              HYPERSCOUT
+            </Typography>
+            
+          </Grid>
+
 
           {/* ====================== pages names ====================== */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' },  marginLeft: '5rem'  }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: theme.palette.txt.main ,display: 'block' }}
+          <Grid item sm={5} md={6} container 
+            justifyContent="center" alignItems="center"
+            sx={{display: { xs: 'none', sm: 'flex' }}}
+          >
+            <Box sx={{ display: { xs: 'none', sm: 'flex' }, marginLeft: '5rem' }}>
+              {PAGES.map((page) => (
+                <Button
+                  size="large"
+                  key={page.url}
+                  onClick={handleCloseNavMenu}
+                  sx={{ 
+                    my: 2, display: 'block',
+                    backgroundColor: isPathActive(page) ? '#202124' : 'inherit',
+                    color: isPathActive(page) ? themeColor.white: 
+                    theme.palette.txt.light
+                  }}
                 >
-                {page}
-              </Button>
-            ))}
-          </Box>
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+          </Grid>
 
           {/* ====================== menu items ====================== */}
-          <Box sx={{ flexGrow: 0}}>
+          <Grid item xs={7} sm={4} md={3}  container alignItems="center"
+            sx={{justifyContent: { xs: 'flex-end', sm: 'flex-end', md: 'center' }}}
+          >
 
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-            >
-              <NotificationsIcon />
-            </IconButton>
+            <Box>
 
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={bgModeHandler}
-              // color="inherit"
-            >
-              <DarkModeIcon />
-            </IconButton>
-
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+              >
+                <NotificationsIcon />
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
 
-          </Box>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={bgModeHandler}
+              // color="inherit"
+              >
+                <DarkModeIcon />
+              </IconButton>
 
-          {/* ====================== menu items ====================== */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+              <Typo txt="Hi, Rakib" size="1.2rem" 
+                Sx={{
+                  display: { xs: 'none', sm: 'inline-block' },
+                  paddingRight: { xs: 0, sm: '1rem' },
+                }} 
+              />
 
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-            >
-              <MenuIcon />
-            </IconButton>
+              <Tooltip title="user menu">
+                <IconButton
+                  sx={{ padding: { xs: '1rem 0', sm: 0 } }}
+                >
+                  <img alt="Remy Sharp" src="/images/users/1.jpg"
+                    style={{
+                      width: '4rem',
+                      height: '4rem',
+                      borderRadius: '0.2rem'
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
 
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', sm: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+            </Box>
+
+            <Box sx={{ display: { xs: 'flex', sm: 'none' } }}>
+
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', sm: 'none' },
+                }}
+              >
+                {PAGES.map((page) => (
+                  <MenuItem key={page.url} onClick={handleCloseNavMenu}
+                    sx={{backgroundColor: isPathActive(page) ? 
+                    '#202124' : 'inherit'}}
+                  >
+
+                    <Typography textAlign="center"
+                      sx={{
+                        color: isPathActive(page) ? 
+                        themeColor.white: theme.palette.txt.light
+                      }}
+                    >
+                      {page.name}
+                    </Typography>
+
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Grid>
 
 
-        </Toolbar>
+        </Grid>
+
       </Container>
 
     </AppBar>

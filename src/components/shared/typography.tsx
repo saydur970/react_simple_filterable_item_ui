@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Typography } from '@mui/material';
+import { SxProps, Theme, Typography } from '@mui/material';
 
 interface ITypo {
   txt: string | number;
@@ -11,11 +11,11 @@ interface ITypo {
   isInherit?: boolean;
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p',
   weight?: number;
-  styleAdd?: { [key: string]: string|number }
+  Sx?: SxProps<Theme> 
 }
 
 export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
-  dotted, isInherit, weight, styleAdd }) => {
+  dotted, isInherit, weight, Sx }) => {
 
   let sz: string;
   const al = align || 'left';
@@ -55,7 +55,6 @@ export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
   }
 
   const additionalStyle = {
-    ...(styleAdd && styleAdd),
     ...(weight && { fontWeight: weight }),
     fontSize: sz,
     margin: margin ? margin : mg,
@@ -66,7 +65,7 @@ export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
     return (
       <Typography variant="body2" component="p" align={al}
         color={color? color: isInherit ? 'textSecondary' : 'textPrimary'}
-        noWrap={isWrap} style={additionalStyle}
+        noWrap={isWrap} style={additionalStyle} sx={{...Sx}}
       >
         {txt}
       </Typography>
@@ -76,7 +75,7 @@ export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
 
   return (
     <Typography variant={variant} align={al}
-      noWrap={isWrap} style={additionalStyle}
+      noWrap={isWrap} style={additionalStyle} sx={{...Sx}}
       >
       {txt}
     </Typography>

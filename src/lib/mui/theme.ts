@@ -21,13 +21,20 @@ declare module '@mui/material/styles' {
     txt: PaletteOptions['primary'];
   }
 
+  // interface Palette {
+  //   highlight: Palette['primary'];
+  // }
+  // interface PaletteOptions {
+  //   highlight: PaletteOptions['primary'];
+  // }
+
 
 }
 
 
 export const muiTheme = ({ mode }: ITheme) => {
 
-  // const currentColor = mode === 'dark' ? '#17181B': '#F7F7F7';
+  const customColor = mode === 'dark' ? '#17181B': '#F7F7F7';
 
   return createTheme({
 
@@ -53,12 +60,18 @@ export const muiTheme = ({ mode }: ITheme) => {
       },
 
       custom: {
-        main: mode === 'dark' ? '#17181B': '#F7F7F7'
+        // main: mode === 'dark' ? '#17181B': '#F7F7F7',
+        main: customColor,
       },
 
       txt: {
-        main: mode === 'dark' ? '#fff': '#000'
-      }
+        main: mode === 'dark' ? '#fff': '#000',
+        light: mode === 'dark' ? '#C4C4C4': '#637381'
+      },
+
+      // highlight: {
+      //   main: mode === 'dark' ? '#202124': '#202124',
+      // }
 
     },
 
@@ -67,7 +80,8 @@ export const muiTheme = ({ mode }: ITheme) => {
       MuiCard: {
         styleOverrides: {
           root: {
-            backgroundColor: mode === 'dark' ? '#17181B': '#F7F7F7'
+            // backgroundColor: mode === 'dark' ? '#17181B': '#F7F7F7'
+            backgroundColor: customColor
           }
         }
       },
