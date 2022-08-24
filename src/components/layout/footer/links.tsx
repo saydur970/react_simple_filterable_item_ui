@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Grid, Link } from '@mui/material';
 import { Typo } from '../../shared/typography';
 import { themeColor } from '../../../lib/mui/color';
+import { useUITheme } from '../../../hooks/useUITheme';
 
 interface IComp {
   list: string[];
@@ -10,13 +11,15 @@ interface IComp {
 
 const ButtonListRender: FC<IComp> = ({ list, title }) => {
 
+  const { theme } = useUITheme();
+
   return (
     <Grid item xs={12} container justifyContent="center" >
 
       <Grid item xs={8} sm={6} lg={8} container>
 
         <Grid item xs={12}>
-          <Typo variant="h4" txt={title} />
+          <Typo variant="h4" txt={title} color={theme.palette.txt.dark} />
         </Grid>
 
         <Grid item xs={12} container>

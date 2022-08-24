@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, Card, CardContent, Typography, IconButton, useTheme } 
+import { Grid, Card, CardContent, Typography, IconButton } 
 from '@mui/material';
 import classes from './profileItem.module.css';
 import { Typo } from '../../shared/typography';
@@ -11,6 +11,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { themeColor } from '../../../lib/mui/color';
+import { useUITheme } from '../../../hooks/useUITheme';
 
 interface IComp {
   item: {
@@ -50,9 +51,7 @@ interface ItextWithKeyValueRender {
 
 export const ProfileItem: FC<IComp> = ({ item }) => {
   
-  const theme = useTheme();
-
-  const isDark = theme.palette.mode === 'dark';
+  const { isDark, theme } = useUITheme();
   
   const SOCIAL_ICON_STYLE = {
     transform: 'scale(1.2)',

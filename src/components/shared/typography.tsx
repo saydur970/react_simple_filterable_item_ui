@@ -26,6 +26,7 @@ export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
   let additionalStyle = {
     ...(size && { fontSize: size }),
     ...(weight && { fontWeight: weight }),
+    ...(color && { color: color }),
     margin: margin ? margin : mg,
   }
 

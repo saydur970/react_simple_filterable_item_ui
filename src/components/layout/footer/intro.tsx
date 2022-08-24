@@ -6,6 +6,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { useUITheme } from '../../../hooks/useUITheme';
 
 interface IComp {
   children: ReactNode;
@@ -25,6 +26,12 @@ const COMMON_LAYOUT_TXT = { textAlign: { xs: 'center', lg: 'left' } };
 
 export const Intro = () => {
 
+  const { isDark, theme } = useUITheme();
+
+  const SOCIAL_ICON_STYLE = {
+    fill: isDark ? themeColor.txt_gray_light : '#212B36'
+  }
+
   return (
     <Grid item xs={12} md={12} lg={3} container justifyContent="center"
       // sx={{padding: '0 2rem'}}
@@ -36,7 +43,12 @@ export const Intro = () => {
 
       <Grid item xs={12} container sx={COMMON_LAYOUT} >
 
-        <Typography variant="h4" sx={COMMON_LAYOUT_TXT} >
+        <Typography variant="h4" 
+          sx={{
+            ...COMMON_LAYOUT_TXT, 
+              color: theme.palette.txt.dark
+            }}
+          >
           hyperscout
         </Typography>
 
@@ -52,22 +64,22 @@ export const Intro = () => {
 
       </Grid>
 
-      <Grid item xs={12} container sx={{marginTop: '1rem', ...COMMON_LAYOUT}} >
+      <Grid item xs={12} container sx={COMMON_LAYOUT} >
 
         <IconItem>
-          <FacebookIcon />
+          <FacebookIcon sx={SOCIAL_ICON_STYLE} />
         </IconItem>
 
         <IconItem>
-          <InstagramIcon />
+          <InstagramIcon sx={SOCIAL_ICON_STYLE} />
         </IconItem>
 
         <IconItem>
-          <LinkedInIcon />
+          <LinkedInIcon sx={SOCIAL_ICON_STYLE} />
         </IconItem>
 
         <IconItem>
-          <TwitterIcon />
+          <TwitterIcon sx={SOCIAL_ICON_STYLE} />
         </IconItem>
         
       </Grid>
