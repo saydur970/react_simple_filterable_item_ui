@@ -1,4 +1,4 @@
-
+export type ty_gender = 'Male'| 'Female';
 export type ty_countryList = 'Croatia'| 'UK'| 'USA'| 
 'Bangladesh'| 'Spain'| 'Jamaica'| 'India';
 export type ty_industry_name = 'Sport'| 'Entertainment'| 'Corporate'| 'Public figure';
@@ -19,7 +19,7 @@ export interface ty_dataItem {
     name: ty_industry_name;
     category: ty_industry_category;
   };
-  gender: 'Male'| 'Female';
+  gender: ty_gender;
   socialMedia: {
     facebook?: string;
     instagram?: string;
@@ -27,21 +27,6 @@ export interface ty_dataItem {
     twitter?: string;
   }
 }
-
-
-// const categoryList = {
-
-//   'Sport': [ 'Football', 'WWE', 'Race', 'Cricket' ],
-
-//   'Entertainment': [ 'Actor', 'Song', 'Comedy', 'YouTuber' ],
-
-//   'Corporate': [ 'Technology', 'Automobile' ],
-
-//   'Public figure': [ 'Politician' ],
-
-// }
-
-
 
 
 export const dataList: ty_dataItem[] = [

@@ -1,10 +1,23 @@
+import { FC, Dispatch, SetStateAction, ChangeEvent } from 'react';
 import { Grid, Card, Input, Button, CardContent, InputAdornment } from '@mui/material';
 import { Typo } from '../shared/typography';
 import SearchIcon from '@mui/icons-material/Search';
+import { ty_filter_DispatchAction, ty_FilterReducer } 
+from './filter/reducer/filter_reducer.type';
+
+interface IComp {
+  setIsFilterMenuOpen: Dispatch<SetStateAction<boolean>>;
+  filterState: ty_FilterReducer;
+  filterDispatch: Dispatch<ty_filter_DispatchAction>
+}
 
 
+export const SearchBar: FC<IComp> = 
+({ setIsFilterMenuOpen, filterState, filterDispatch }) => {
 
-export const SearchBar = () => {
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    filterDispatch({ type: 'name', payload: event.target.value })
+  }
 
   return (
     <Grid item xs={12}>
@@ -27,16 +40,21 @@ export const SearchBar = () => {
               sx={{ marginBottom: { xs: '1.5rem', sm: 0 } }}
             >
               <Input fullWidth={true} placeholder="Search Profile"
+                value={filterState.name} 
+                onChange={changeHandler}
                 startAdornment={
                   <InputAdornment position='start'>
                     <SearchIcon />
                   </InputAdornment>
                 }
+
               />
             </Grid>
 
             <Grid item xs={12} sm={3} md={3} lg={2} container justifyContent="center" >
-              <Button variant="contained" >
+              <Button variant="contained"
+                onClick={() => setIsFilterMenuOpen(true)}
+              >
                 Advanced Filter
               </Button>
             </Grid>
