@@ -75,6 +75,7 @@ export const Filter: FC<IComp> =
               />
 
             </Grid>
+
             <Grid item xs={12} container>
               <Button variant="contained" 
                 sx={{backgroundColor: '#050405', marginRight: '1.5rem'}}
@@ -86,6 +87,7 @@ export const Filter: FC<IComp> =
                 Apply 
               </Button>
             </Grid>
+            
           </CardContent>
 
         </Card>

@@ -13,6 +13,8 @@ const categoryList:  { [key in ty_industry_name]: ty_industry_category[] } = {
 
 }
 
+export const DATA_PER_PAGE_LIMIT = 6;
+
 export const data_CountryList: ty_countryList[] = [
   'Croatia', 'UK', 'USA', 'Bangladesh', 'Spain', 'Jamaica', 'India'
 ]

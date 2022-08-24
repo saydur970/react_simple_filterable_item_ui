@@ -1,5 +1,6 @@
 import { dataList, ty_countryList, ty_industry_category, 
   ty_industry_name, ty_gender, ty_social_media } from "./dataList";
+import { DATA_PER_PAGE_LIMIT } from "./utilData";
 
 interface IFetchData {
   name: string;
@@ -14,7 +15,6 @@ interface IFetchData {
   totalFollower: number;
 }
 
-const DOC_LIMIT = 6;
 
 export const fetchData = 
 ({ name, page, country, gender, industry, totalFollower, social_media }: IFetchData) => {
@@ -68,8 +68,8 @@ export const fetchData =
 
   // ========== pagination ============
   if(page >= 1) {
-    const startIdx = (page-1)*DOC_LIMIT;
-    list = [...list.slice(startIdx, startIdx+DOC_LIMIT)];
+    const startIdx = (page-1)*DATA_PER_PAGE_LIMIT;
+    list = [...list.slice(startIdx, startIdx+DATA_PER_PAGE_LIMIT)];
   }
 
 

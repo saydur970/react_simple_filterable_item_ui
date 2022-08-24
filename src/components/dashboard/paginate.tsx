@@ -1,89 +1,131 @@
-import { FC } from 'react';
+import { useState, useEffect, FC, Dispatch } from 'react';
 import { Grid, IconButton } from '@mui/material';
+import { paginatePage } from '../../utils/paginatePage';
 // icons
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ty_filter_DispatchAction } from './filter/reducer/filter_reducer.type';
+import { useUITheme } from '../../hooks/useUITheme';
+import { DATA_PER_PAGE_LIMIT } from '../../dataset/utilData';
 
 
 interface IComp {
   currentPage: number;
   lastPage: number;
+  filterDispatch: Dispatch<ty_filter_DispatchAction>;
+  currentTotalData: number;
 }
 
-const SLICE_NUM = 2;
-const DISPLAY_NUM = SLICE_NUM * 2 - 1;
-
-export const Paginate: FC<IComp> = ({currentPage, lastPage}) => {
-
-  const renderButton = () => {
-
-    const currentPageIdx = currentPage -1;
-    const pageList = Array.from(Array(lastPage).keys());
-
-    let firstPart = [...pageList.slice(0, SLICE_NUM)];
-    let lastPart = [...pageList.slice(lastPage-SLICE_NUM)];
-    let middelPart: number[] = [];
 
 
-    // if currentPageIdx is on first part
-    if (currentPageIdx >= firstPart[0] &&
-      currentPageIdx <= firstPart[firstPart.length - 1]) {
-      firstPart = [...pageList.slice(0, DISPLAY_NUM)];
+export const Paginate: FC<IComp> = 
+({currentPage, lastPage, filterDispatch, currentTotalData}) => {
+
+  const [pageList, setPageList] = useState<(number|null)[]>([]);
+  const { theme } = useUITheme();
+
+  useEffect(() => {
+    setPageList(paginatePage({currentPage, lastPage}))
+  }, [currentPage, lastPage]);
+
+
+  const prevHandler = () => {
+    if(currentPage > 1) {
+      filterDispatch({
+        type: 'page',
+        payload: currentPage-1
+      })
     }
-    // if currentPageIdx is on last part
-    else if (currentPageIdx >= lastPart[0] &&
-      currentPageIdx <= lastPart[lastPart.length - 1]) {
-      lastPart = [...pageList.slice(lastPage - DISPLAY_NUM)];
-    }
-    else {
-      middelPart = [currentPageIdx-1, currentPageIdx, currentPageIdx+1]
-    }
+  }
 
-    let pageNumList: (number|null)[] = [...firstPart];
+  const nextHandler = () => {
+    if(currentTotalData >= DATA_PER_PAGE_LIMIT) {
+      filterDispatch({
+        type: 'page',
+        payload: currentPage+1
+      })
+    }
+  };
 
-    // add middle part
-    if([0, 1].includes(middelPart[0] - firstPart[firstPart.length-1])) {
-      pageNumList = [...pageNumList, ...middelPart]
-    }
-    else {
-      pageNumList = [...pageNumList, null, ...middelPart]
-    }
+  const targetPageHandler = (pageIdx: number) => {
 
-    // add last part
-    if(
-      [0, 1].includes(lastPart[0]-middelPart[middelPart.length-1]) ||
-      pageNumList[pageNumList.length-1] === null
-    ) {
-      pageNumList = [...pageNumList, ...lastPart]
+    let targetPage: number|null = null;
+
+    // if pageIdx has actual page
+    if (pageList[pageIdx] !== null) {
+      targetPage = pageList[pageIdx]
     }
-    else {
-      pageNumList = [...pageNumList, null, ...lastPart]
+    // if previous idx of pageIdx has actual page
+    else if (pageList[pageIdx-1] !== null) {
+      targetPage = pageList[pageIdx-1]
+    }
+    // if next idx of pageIdx has actual page
+    else if (pageList[pageIdx+1] !== null) {
+      targetPage = pageList[pageIdx+1]
     }
 
+    if(targetPage !== null) {
+      filterDispatch({
+        type: 'page',
+        payload: targetPage
+      })
+    }
 
   }
 
-  renderButton()
+  const buttonListRender = () => {
+
+    return pageList.map((el, idx) => (
+
+      <IconButton key={idx} onClick={()=> targetPageHandler(idx)}
+        sx={{
+          marginRight: '1rem',
+          padding: '1rem',
+          backgroundColor: el === currentPage ? 
+          theme.palette.highlight.main : 'transparent'
+        }}
+        disabled={currentTotalData < DATA_PER_PAGE_LIMIT && idx+1 >= currentPage}
+      >
+        {el !== null ? el: '...'}
+      </IconButton>
+
+    ))
+
+  }
 
 
 
   return (
-    <Grid item xs={12} container sx={{marginTop: '2rem'}} >
+    <Grid item xs={12} container sx={{marginTop: '5rem'}} >
 
       <Grid item xs={2} >
-        <IconButton>
+        <IconButton onClick={prevHandler} disabled={currentPage <= 1} >
           <ArrowBackIcon sx={{transform: 'scale(1.2)', marginRight: '0.5rem'}} /> Previous
         </IconButton>
       </Grid>
 
 
-      <Grid item xs={8} >
+      <Grid item xs={8} container justifyContent="center" >
+
+        {
+          buttonListRender()
+        }
+
+        {/* {
+          pageList.map(el => {
+            if(el !== null) {
+              return 
+            }
+          })
+        } */}
 
       </Grid>
 
 
       <Grid item xs={2} container justifyContent="flex-end" >
-        <IconButton >
+        <IconButton onClick={nextHandler} 
+          disabled={currentTotalData < DATA_PER_PAGE_LIMIT}
+        >
           Next <ArrowForwardIcon sx={{transform: 'scale(1.2)', marginLeft: '0.5rem'}}/>
         </IconButton>
       </Grid>

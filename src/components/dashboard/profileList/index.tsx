@@ -1,12 +1,14 @@
 // module
 import { FC } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import classes from './profileItem.module.css';
 // comp
 import { ty_dataItem } from '../../../dataset/dataList';
 import { ProfileItem } from './profileItem';
 // types
 import { ty_Fetch_StatusT } from '../../../types/general.types';
+import { Typo } from '../../shared/typography';
+import { Progress } from '../../shared/process';
 
 interface IComp {
   list: ty_dataItem[];
@@ -15,19 +17,29 @@ interface IComp {
 
 export const ProfileList: FC<IComp> = ({ list, status }) => {
 
+
+
+
   if(status === 'error') {
     return (
-      <h1> error </h1>
+      <Grid item xs={12} sx={{minHeight: '50vh'}} >
+        <Typo variant="h4" txt="Error" align="center" Sx={{marginTop: '10rem'}} />
+      </Grid>
     )
   }
 
   if(status === 'loading') {
-    return <h1> loading.... </h1>
+    return <Progress />
   }
 
   if(list.length === 0) {
-    return <h1> not data </h1>
+    return (
+      <Grid item xs={12} sx={{minHeight: '50vh'}} >
+        <Typo variant="h4" txt="No Data" align="center" Sx={{marginTop: '10rem'}} />
+      </Grid>
+    )
   }
+
 
   return (
     <div className={classes.mainParent}>
