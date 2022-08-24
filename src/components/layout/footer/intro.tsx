@@ -7,14 +7,17 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { useUITheme } from '../../../hooks/useUITheme';
+// icons
+import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
+
 
 interface IComp {
   children: ReactNode;
 }
 
-const IconItem: FC<IComp> = ({children}) => {
+const IconItem: FC<IComp> = ({ children }) => {
   return (
-    <IconButton sx={{marginRight: '0.5rem'}} >
+    <IconButton sx={{ marginRight: '0.5rem' }} >
       {children}
     </IconButton>
   )
@@ -34,55 +37,61 @@ export const Intro = () => {
 
   return (
     <Grid item xs={12} md={12} lg={3} container justifyContent="center"
-      // sx={{padding: '0 2rem'}}
+    // sx={{padding: '0 2rem'}}
     >
 
       <Grid item container xs={6} lg={8}
         sx={COMMON_LAYOUT}
       >
 
-      <Grid item xs={12} container sx={COMMON_LAYOUT} >
+        <Grid item xs={12} container sx={COMMON_LAYOUT} >
 
-        <Typography variant="h4" 
-          sx={{
-            ...COMMON_LAYOUT_TXT, 
+          <AlignHorizontalCenterIcon sx={{
+            transform: 'scale(1.5) translateY(0.4rem)',
+            marginRight: '1rem'
+          }}
+          />
+
+          <Typography variant="h4"
+            sx={{
+              ...COMMON_LAYOUT_TXT,
               color: theme.palette.txt.dark
             }}
           >
-          hyperscout
-        </Typography>
+            hyperscout
+          </Typography>
 
-        <Typography
-          sx={{
-            color: themeColor.txt_gray_light, fontSize: '1.3rem', 
-            marginTop: '2rem', ...COMMON_LAYOUT_TXT
-          }} 
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Fermentum sed ultricies volutpat rhoncus faucibus sit. 
-        </Typography>
+          <Typography
+            sx={{
+              color: themeColor.txt_gray_light, fontSize: '1.3rem',
+              marginTop: '2rem', ...COMMON_LAYOUT_TXT
+            }}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Fermentum sed ultricies volutpat rhoncus faucibus sit.
+          </Typography>
 
-      </Grid>
+        </Grid>
 
-      <Grid item xs={12} container sx={COMMON_LAYOUT} >
+        <Grid item xs={12} container sx={COMMON_LAYOUT} >
 
-        <IconItem>
-          <FacebookIcon sx={SOCIAL_ICON_STYLE} />
-        </IconItem>
+          <IconItem>
+            <FacebookIcon sx={SOCIAL_ICON_STYLE} />
+          </IconItem>
 
-        <IconItem>
-          <InstagramIcon sx={SOCIAL_ICON_STYLE} />
-        </IconItem>
+          <IconItem>
+            <InstagramIcon sx={SOCIAL_ICON_STYLE} />
+          </IconItem>
 
-        <IconItem>
-          <LinkedInIcon sx={SOCIAL_ICON_STYLE} />
-        </IconItem>
+          <IconItem>
+            <LinkedInIcon sx={SOCIAL_ICON_STYLE} />
+          </IconItem>
 
-        <IconItem>
-          <TwitterIcon sx={SOCIAL_ICON_STYLE} />
-        </IconItem>
-        
-      </Grid>
+          <IconItem>
+            <TwitterIcon sx={SOCIAL_ICON_STYLE} />
+          </IconItem>
+
+        </Grid>
 
       </Grid>
 

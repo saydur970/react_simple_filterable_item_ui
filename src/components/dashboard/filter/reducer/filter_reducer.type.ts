@@ -1,4 +1,4 @@
-import { ty_countryList, ty_industry_name, ty_industry_category, ty_gender } 
+import { ty_countryList, ty_industry_name, ty_industry_category, ty_gender, ty_social_media } 
 from "../../../../dataset/dataList";
 
 
@@ -12,6 +12,7 @@ export type ty_FilterReducer = {
     category: ty_industry_category[];
   };
   totalFollower: number;
+  social_media: ty_social_media|null;
 }
 
 export type ty_filter_DispatchAction =
@@ -19,6 +20,7 @@ export type ty_filter_DispatchAction =
   { type: 'page', payload: number } |
   { type: 'country', payload: ty_countryList } |
   { type: 'gender', payload: ty_gender } |
+  { type: 'social_media', payload: ty_social_media } |
 
   { type: 'industry_name', payload: ty_industry_name } |
   { type: 'industry_category', payload: ty_industry_category } |

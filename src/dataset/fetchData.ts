@@ -1,10 +1,11 @@
 import { dataList, ty_countryList, ty_industry_category, 
-  ty_industry_name, ty_gender } from "./dataList";
+  ty_industry_name, ty_gender, ty_social_media } from "./dataList";
 
 interface IFetchData {
   name: string;
   page: number;
   country: ty_countryList|null;
+  social_media: ty_social_media|null;
   gender: ty_gender;
   industry: {
     name: ty_industry_name|null;
@@ -16,7 +17,7 @@ interface IFetchData {
 const DOC_LIMIT = 6;
 
 export const fetchData = 
-({ name, page, country, gender, industry, totalFollower }: IFetchData) => {
+({ name, page, country, gender, industry, totalFollower, social_media }: IFetchData) => {
 
   let list = dataList;
 
@@ -28,6 +29,11 @@ export const fetchData =
   // ============ filter gender ============
   if(gender) {
     list = [...list].filter(el => el.gender === gender);
+  }
+
+  // ============ filter social media ============
+  if(social_media) {
+    list = [...list].filter(el => el.socialMedia.hasOwnProperty(social_media));
   }
 
   // ============ filter industry name ============

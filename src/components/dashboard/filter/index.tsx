@@ -9,6 +9,7 @@ import { FilterInfluncerCountry } from './filterItem/influncerCountry';
 import { FilterInfluncerCategory } from './filterItem/influncerCategory';
 import { FilterInfluncerGender } from './filterItem/influncerGender';
 import { FilterInfluncerFollower } from './filterItem/influncerFollower';
+import { FilterInfluncerSocial } from './filterItem/influncerSocialMedia';
 
 interface IComp {
   isOpen: boolean;
@@ -23,6 +24,11 @@ export const Filter: FC<IComp> =
 
   const closeHandler = () => {
     setIsOpen(false);
+  }
+
+  const applyHandler = () => {
+    handleFilterData();
+    closeHandler();
   }
 
   if(!isOpen) return null;
@@ -55,11 +61,16 @@ export const Filter: FC<IComp> =
                 filterState={filterState} filterDispatch={filterDispatch}
               />
 
-              <FilterInfluncerGender
+              <FilterInfluncerSocial
                 filterState={filterState} filterDispatch={filterDispatch}
               />
 
+
               <FilterInfluncerFollower
+                filterState={filterState} filterDispatch={filterDispatch}
+              />
+
+              <FilterInfluncerGender
                 filterState={filterState} filterDispatch={filterDispatch}
               />
 
@@ -71,7 +82,7 @@ export const Filter: FC<IComp> =
                 > 
                   Reset 
               </Button>
-              <Button variant="contained" onClick={handleFilterData} > 
+              <Button variant="contained" onClick={applyHandler} > 
                 Apply 
               </Button>
             </Grid>

@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AppBar, Grid, Box, IconButton, Typography, Menu, Container, 
   Button, Tooltip, MenuItem} from '@mui/material';
-  import { useTheme } from '@mui/material';
-  import { getURLPath } from '../../utils/getUrlPath';
-  import { themeColor } from '../../lib/mui/color';
+import { getURLPath } from '../../../utils/getUrlPath';
+import { themeColor } from '../../../lib/mui/color';
 // context
-import { useUICtx } from '../../context/ui.context';
+// import { useUICtx } from '../../../context/ui.context';
 // comp
-import { Typo } from '../shared/typography';
+import { Typo } from '../../shared/typography';
+// hooks
+import { useUITheme } from '../../../hooks/useUITheme';
 // icons
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
+// import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
+import { UIModeToggle } from './uiModeToggle';
 
 
 type TPageItem = {name: string; url: string};
@@ -31,9 +35,10 @@ const isPathActive = ({url}: TPageItem): boolean => {
 
 export const Header = () => {
 
+  const [isUIModeMenuOpen, setIsUIModeMenuOpen] = useState(false);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const { setUICtx } = useUICtx();
-  const theme = useTheme();
+  // const { setUICtx } = useUICtx();
+  const { theme, isDark } = useUITheme();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,12 +49,15 @@ export const Header = () => {
   };
 
   const bgModeHandler = () => {
-    setUICtx({
-      key: 'mode', value: true
-    })
+    // setUICtx({
+    //   key: 'mode', value: true
+    // })
+    setIsUIModeMenuOpen(true);
   }
 
   return (
+    <Fragment>
+
     <AppBar position="static"
       sx={{ backgroundColor: theme.palette.custom.main, marginBottom: '2rem' }}
     >
@@ -63,7 +71,7 @@ export const Header = () => {
             sx={{justifyContent: { xs: 'flex-start', sm: 'center' }}}
           >
 
-            <AdbIcon sx={{ 
+            <AlignHorizontalCenterIcon sx={{ 
               display: { xs: 'flex', color: theme.palette.txt.main }, mr: 1 
               }} 
             />
@@ -136,7 +144,11 @@ export const Header = () => {
                 onClick={bgModeHandler}
               // color="inherit"
               >
-                <DarkModeIcon />
+                {
+                  isDark ?
+                  <DarkModeIcon /> :
+                  <WbSunnyIcon />
+                }
               </IconButton>
 
               <Typo txt="Hi, Rakib" size="1.2rem" 
@@ -219,5 +231,10 @@ export const Header = () => {
       </Container>
 
     </AppBar>
+
+      <UIModeToggle isOpen={isUIModeMenuOpen} setIsOpen={setIsUIModeMenuOpen}  />
+
+    </Fragment>
+
   );
 };

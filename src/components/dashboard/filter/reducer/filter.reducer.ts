@@ -5,6 +5,7 @@ export const filterDataReducerInitial: ty_FilterReducer = {
   page: 1,
   country: null,
   gender: 'Male',
+  social_media: null,
   industry: {
     name: null,
     category: []
@@ -53,6 +54,16 @@ export const filterDataReducer =
       return {
         ...state,
         gender: action.payload
+      }
+
+    }
+
+    // ==================== Handle social media =========================
+    case 'social_media': {
+
+      return {
+        ...state,
+        social_media: action.payload ? action.payload: null
       }
 
     }

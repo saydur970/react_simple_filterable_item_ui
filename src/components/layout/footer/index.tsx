@@ -1,6 +1,4 @@
-import { Grid, Typography, useTheme, Link } from '@mui/material';
-import { themeColor } from '../../../lib/mui/color';
-import { Typo } from '../../shared/typography';
+import { Grid, useTheme } from '@mui/material';
 import { CopyRight } from './copyRight';
 import { Intro } from './intro';
 import { AdditionalLinks } from './links';

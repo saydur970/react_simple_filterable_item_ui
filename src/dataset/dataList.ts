@@ -4,6 +4,7 @@ export type ty_countryList = 'Croatia'| 'UK'| 'USA'|
 export type ty_industry_name = 'Sport'| 'Entertainment'| 'Corporate'| 'Public figure';
 export type ty_industry_category = 'Football'| 'Actor'| 'Song'| 'WWE'| 'Race'| 'Cricket'|
 'Technology'| 'Politician'| 'Comedy'| 'YouTuber'| 'Automobile' ;
+export type ty_social_media = 'facebook'| 'instagram'| 'linkedin'| 'twitter';
 
 export interface ty_dataItem {
   id: string;

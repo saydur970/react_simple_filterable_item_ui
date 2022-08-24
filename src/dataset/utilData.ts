@@ -1,6 +1,7 @@
-import { ty_countryList, ty_gender, ty_industry_category, ty_industry_name } from "./dataList";
+import { ty_countryList, ty_gender, ty_industry_category, ty_industry_name, ty_social_media } 
+from "./dataList";
 
-const categoryList:  { [key in ty_industry_name]: string[] } = {
+const categoryList:  { [key in ty_industry_name]: ty_industry_category[] } = {
 
   'Sport': [ 'Football', 'WWE', 'Race', 'Cricket' ],
 
@@ -21,6 +22,10 @@ export const data_IndustryNameList: ty_industry_name[] = [
 ]
 
 export const data_GenderList: ty_gender[] = ['Male', 'Female'];
+
+export const data_SocialList: ty_social_media[] = [
+  'facebook', 'instagram', 'linkedin', 'twitter'
+]
 
 export const data_IndustryCategoryList = (name: ty_industry_name|null): string[] => {
 

@@ -6,7 +6,7 @@ type TUICtxValue = {
 }
 
 type TModifyValue = 
-{ key: 'mode', value: boolean; }
+{ key: 'mode', value: ty_UI_Mode; }
 
 interface IUICtx {
   uiCtx: TUICtxValue;
@@ -36,7 +36,7 @@ export const UIContextProvider: FC<IUIContextProvider> = ({ children }) => {
     if(key === 'mode') {
       setValueState({ 
         ...valueState, 
-        mode: valueState.mode === 'dark' ? 'light': 'dark'
+        mode: value
       })
 
     }

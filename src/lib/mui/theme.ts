@@ -22,12 +22,12 @@ declare module '@mui/material/styles' {
     txt: PaletteOptions['primary'];
   }
 
-  // interface Palette {
-  //   highlight: Palette['primary'];
-  // }
-  // interface PaletteOptions {
-  //   highlight: PaletteOptions['primary'];
-  // }
+  interface Palette {
+    highlight: Palette['primary'];
+  }
+  interface PaletteOptions {
+    highlight: PaletteOptions['primary'];
+  }
 
 
 }
@@ -71,9 +71,9 @@ export const muiTheme = ({ mode }: ITheme) => {
         light: mode === 'dark' ? '#C4C4C4': '#637381'
       },
 
-      // highlight: {
-      //   main: mode === 'dark' ? '#202124': '#202124',
-      // }
+      highlight: {
+        main: mode === 'dark' ? '#050405':  '#e7ebf0',
+      }
 
     },
 
