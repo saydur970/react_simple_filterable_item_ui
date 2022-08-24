@@ -6,9 +6,9 @@ interface IComp {
   children: ReactNode
 }
 
-export const Layout: FC<IComp> = ({children}) => {
+export const Layout: FC<IComp> = ({ children }) => {
   return (
-   <Fragment>
+    <Fragment>
 
       <Header />
 
@@ -23,6 +23,6 @@ export const Layout: FC<IComp> = ({children}) => {
 
       <Footer />
 
-   </Fragment>
+    </Fragment>
   )
 };

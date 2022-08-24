@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { ty_UI_Mode } from '../../types/ui.types';
+import { themeColor } from './color';
 
 interface ITheme {
   mode: ty_UI_Mode
@@ -51,7 +52,7 @@ export const muiTheme = ({ mode }: ITheme) => {
 
       // primary color
       primary: {
-        main: '#564FB1',
+        main: themeColor.primary,
         light: '#887be4',
         dark: '#504a91'
         // main: '#9c27b0',
@@ -65,7 +66,8 @@ export const muiTheme = ({ mode }: ITheme) => {
       },
 
       txt: {
-        main: mode === 'dark' ? '#fff': '#000',
+        main : mode === 'dark' ? themeColor.txt_gray_light: themeColor.black,
+        dark: mode === 'dark' ? '#fff': '#000',
         light: mode === 'dark' ? '#C4C4C4': '#637381'
       },
 
@@ -90,6 +92,14 @@ export const muiTheme = ({ mode }: ITheme) => {
         styleOverrides: {
           root: {
             fontSize: '1.3rem'
+          }
+        }
+      },
+
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: mode === 'dark' ? themeColor.txt_gray_light: themeColor.black
           }
         }
       }

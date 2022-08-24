@@ -8,16 +8,14 @@ interface ITypo {
   align?: "inherit" | "left" | "center" | "right" | "justify";
   margin?: string;
   dotted?: boolean,
-  isInherit?: boolean;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p',
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1',
   weight?: number;
   Sx?: SxProps<Theme> 
 }
 
 export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
-  dotted, isInherit, weight, Sx }) => {
+  dotted, weight, Sx }) => {
 
-  let sz: string;
   const al = align || 'left';
   const mg = '0 0 1rem 0';
   let isWrap = false;
@@ -25,47 +23,17 @@ export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
     isWrap = true;
   }
 
-  // define sizes
-  if (size) {
-    sz = size
-  } else {
-    switch (variant) {
-      case 'p':
-        sz = '1.5rem';
-        break;
-      case 'h1':
-        sz = '3rem';
-        break;
-      case 'h2':
-        sz = '2.5rem'
-        break;
-      case 'h3':
-        sz = '2rem'
-        break;
-      case 'h4':
-        sz = '1.5rem'
-        break;
-      case 'h5':
-        sz = '1.2rem'
-        break;
-      default:
-        sz = '1.5rem'
-    }
-
-  }
-
-  const additionalStyle = {
+  let additionalStyle = {
+    ...(size && { fontSize: size }),
     ...(weight && { fontWeight: weight }),
-    fontSize: sz,
     margin: margin ? margin : mg,
   }
 
-  if (!variant || variant === 'p') {
+  if (!variant || variant === 'body1') {
 
     return (
-      <Typography variant="body2" component="p" align={al}
-        color={color? color: isInherit ? 'textSecondary' : 'textPrimary'}
-        noWrap={isWrap} style={additionalStyle} sx={{...Sx}}
+      <Typography variant="body1" align={al}
+        noWrap={isWrap} sx={{fontSize: '1.4rem', ...additionalStyle, ...Sx}}
       >
         {txt}
       </Typography>
@@ -75,9 +43,40 @@ export const Typo: FC<ITypo> = ({ txt, size, align, margin, variant, color,
 
   return (
     <Typography variant={variant} align={al}
-      noWrap={isWrap} style={additionalStyle} sx={{...Sx}}
+      noWrap={isWrap} sx={{...additionalStyle, ...Sx}}
       >
       {txt}
     </Typography>
   )
 }
+
+
+
+  // // define sizes
+  // if (size) {
+  //   sz = size
+  // } else {
+  //   switch (variant) {
+  //     case 'body1':
+  //       sz = '1.4rem';
+  //       break;
+  //     case 'h1':
+  //       sz = '6rem';
+  //       break;
+  //     case 'h2':
+  //       sz = '3.75rem'
+  //       break;
+  //     case 'h3':
+  //       sz = '3rem'
+  //       break;
+  //     case 'h4':
+  //       sz = '1.5rem'
+  //       break;
+  //     case 'h5':
+  //       sz = '1.2rem'
+  //       break;
+  //     default:
+  //       sz = '1.5rem'
+  //   }
+
+  // }

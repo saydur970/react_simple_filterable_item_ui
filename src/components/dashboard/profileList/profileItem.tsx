@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid, Card, CardContent, Typography, IconButton } 
+import { Grid, Card, CardContent, Typography, IconButton, useTheme } 
 from '@mui/material';
 import classes from './profileItem.module.css';
 import { Typo } from '../../shared/typography';
@@ -10,6 +10,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { themeColor } from '../../../lib/mui/color';
 
 interface IComp {
   item: {
@@ -46,10 +47,17 @@ interface ItextWithKeyValueRender {
   value: string;
 }
 
-const GENERAL_COLOR = '#637381';
-
 
 export const ProfileItem: FC<IComp> = ({ item }) => {
+  
+  const theme = useTheme();
+
+  const isDark = theme.palette.mode === 'dark';
+  
+  const SOCIAL_ICON_STYLE = {
+    transform: 'scale(1.2)',
+    fill: isDark ? themeColor.txt_gray_light : themeColor.primary
+  };
 
 
   const socialIcon = ({ type, link }: socialIconListParam) => {
@@ -58,12 +66,12 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
         <IconButton>
           {
             type === 'fb' ?
-              <FacebookIcon sx={{ color: GENERAL_COLOR, transform: 'scale(1.2)' }} /> :
+              <FacebookIcon sx={SOCIAL_ICON_STYLE} /> :
               type === 'ins' ?
-                <InstagramIcon sx={{ color: GENERAL_COLOR, transform: 'scale(1.2)' }} /> :
+                <InstagramIcon sx={SOCIAL_ICON_STYLE} /> :
                 type === 'tw' ?
-                  <TwitterIcon sx={{ color: GENERAL_COLOR, transform: 'scale(1.2)' }} /> :
-                  <LinkedInIcon sx={{ color: GENERAL_COLOR, transform: 'scale(1.2)' }} />
+                  <TwitterIcon sx={SOCIAL_ICON_STYLE} /> :
+                  <LinkedInIcon sx={SOCIAL_ICON_STYLE} />
           }
         </IconButton>
       </Grid>
@@ -74,19 +82,21 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
   const textWithKeyValueRender = ({key, value}: ItextWithKeyValueRender) => {
     return (
       <Grid item xs={3} container 
-        sx={{border: `0.1rem dashed ${GENERAL_COLOR}`, 
+        sx={{border: `0.1rem dashed ${theme.palette.txt.main}`, 
         padding: '0.5rem 1.5rem', margin: '0 0.5rem'
       }} 
       >
           <Grid item xs={12} >
             <Typography variant="h5" align="center"
-              sx={{fontSize: '1.4rem', marginBottom: '0.5rem'}}
+              sx={{fontSize: '1.4rem', marginBottom: '0.5rem', 
+              color: isDark ? '#95B3CD': themeColor.primary
+            }}
             >
               {value}
             </Typography>
           </Grid>
           <Grid item xs={12} >
-            <Typo txt={key} align="center" size="1.2rem" color={GENERAL_COLOR} 
+            <Typo txt={key} align="center" size="1.2rem"
               margin="0rem" 
             />
           </Grid>
@@ -113,7 +123,11 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
 
             {/* ======================= profile name ======================= */}
             <Grid item xs={12} sx={{ marginBottom: '0.5rem' }} >
-              <Typo txt={item.name} variant="h3" align="center" dotted={true} />
+              <Typo txt={item.name} variant="h4" align="center" dotted={true} 
+                Sx={{ 
+                  color: isDark ? themeColor.white: themeColor.black 
+                }}
+              />
             </Grid>
 
             {/* ======================= location ======================= */}
@@ -121,7 +135,7 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
               <IconButton
                 sx={{ transform: 'scale(1.2) translateY(-0.4rem)' }}
               >
-                <LocationOnIcon sx={{ color: GENERAL_COLOR }} />
+                <LocationOnIcon sx={{ color: theme.palette.txt.main  }} />
               </IconButton>
               <Typo size="1.4rem" txt={`${item.location.city} ${item.location.country}`}
                 align="center" color="#637381" dotted={true}
@@ -134,7 +148,7 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
               <IconButton
                 sx={{ transform: 'scale(1.2) translateY(-0.4rem)' }}
               >
-                <AccessTimeIcon sx={{ color: GENERAL_COLOR }} />
+                <AccessTimeIcon sx={{ color: theme.palette.txt.main }} />
               </IconButton>
               <Typo size="1.4rem" txt={`Joined On: ${item.joined}`}
                 align="center" color="#637381" dotted={true}
