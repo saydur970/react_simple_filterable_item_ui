@@ -91,7 +91,7 @@ export const Paginate: FC<IComp> =
           theme.palette.highlight.main : 'transparent',
           color: theme.palette.txt.main
         }}
-        disabled={currentTotalData < DATA_PER_PAGE_LIMIT && idx+1 >= currentPage}
+        disabled={currentTotalData < DATA_PER_PAGE_LIMIT && (!el || el > currentPage)}
       >
         {el !== null ? el: '...'}
       </IconButton>
