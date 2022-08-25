@@ -14,12 +14,13 @@ interface IComp {
   lastPage: number;
   filterDispatch: Dispatch<ty_filter_DispatchAction>;
   currentTotalData: number;
+  scrollHandler: () => void;
 }
 
 
 
 export const Paginate: FC<IComp> = 
-({currentPage, lastPage, filterDispatch, currentTotalData}) => {
+({currentPage, lastPage, filterDispatch, currentTotalData, scrollHandler}) => {
 
   const [pageList, setPageList] = useState<(number|null)[]>([]);
   const { theme } = useUITheme();
@@ -35,6 +36,7 @@ export const Paginate: FC<IComp> =
         type: 'page',
         payload: currentPage-1
       })
+      scrollHandler();
     }
   }
 
@@ -44,6 +46,7 @@ export const Paginate: FC<IComp> =
         type: 'page',
         payload: currentPage+1
       })
+      scrollHandler();
     }
   };
 
@@ -69,6 +72,7 @@ export const Paginate: FC<IComp> =
         type: 'page',
         payload: targetPage
       })
+      scrollHandler();
     }
 
   }

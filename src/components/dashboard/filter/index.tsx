@@ -16,12 +16,12 @@ interface IComp {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   filterState: ty_FilterReducer;
   filterDispatch: Dispatch<ty_filter_DispatchAction>;
-  handleFilterData: (isApplied?: boolean) => void;
-  setWillFilterData: Dispatch<SetStateAction<boolean>>
+  setWillFilterData: Dispatch<SetStateAction<boolean>>;
+  scrollHandler: () => void;
 }
 
 export const Filter: FC<IComp> = 
-({ isOpen, setIsOpen, filterState, filterDispatch, setWillFilterData }) => {
+({ isOpen, setIsOpen, filterState, filterDispatch, setWillFilterData, scrollHandler }) => {
 
   const closeHandler = () => {
     setIsOpen(false);
@@ -30,10 +30,18 @@ export const Filter: FC<IComp> =
   const applyHandler = () => {
     filterDispatch({type: 'page', payload: 1});
     filterDispatch({type: 'apply', payload: true});
-    // handleFilterData(true);
     setWillFilterData(true);
+    scrollHandler();
     closeHandler();
   }
+
+  const resetHandler = () => {
+    filterDispatch({type: 'reset'});
+    setWillFilterData(true);
+    scrollHandler();
+    closeHandler();
+  }
+
 
   if(!isOpen) return null;
 
@@ -83,7 +91,7 @@ export const Filter: FC<IComp> =
             <Grid item xs={12} container>
               <Button variant="contained" 
                 sx={{backgroundColor: '#050405', marginRight: '1.5rem'}}
-                  onClick={() => filterDispatch({type: 'reset'})}
+                  onClick={resetHandler}
                 > 
                   Reset 
               </Button>

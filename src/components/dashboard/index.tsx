@@ -1,5 +1,5 @@
 // module
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer, useRef } from 'react';
 import { Grid } from '@mui/material';
 import { fetchData, ty_FetchDataParam } from '../../dataset/fetchData';
 import { ProfileList } from './profileList';
@@ -22,6 +22,7 @@ export const Dashboard = () => {
   const [filterState, filterDispatch] =
     useReducer(filterDataReducer, filterDataReducerInitial);
   const [willFilterData, setWillFilterData] = useState(false);
+  const pageUpperRef = useRef<HTMLDivElement|null>(null);
 
   // ============ run initially and when search name or page changed 
   useEffect(() => {
@@ -65,6 +66,14 @@ export const Dashboard = () => {
     setStatus('success');
   }
 
+  const scrollHandler = () => {
+    if(pageUpperRef.current) {
+      pageUpperRef.current.scrollIntoView({
+        behavior: 'smooth'
+      })
+    }
+  }
+
 
   // const handleFilterData = useCallback(() => {
   //   setStatus('loading');
@@ -80,15 +89,18 @@ export const Dashboard = () => {
         filterState={filterState} filterDispatch={filterDispatch}
       />
 
+      <div ref={pageUpperRef} ></div>
+
       <ProfileList status={status} list={currentList} />
 
-      <Paginate currentPage={filterState.page} lastPage={LAST_PAGE}
+      <Paginate currentPage={filterState.page} lastPage={LAST_PAGE} 
         filterDispatch={filterDispatch} currentTotalData={currentList.length}
+        scrollHandler={scrollHandler}
       />
 
       <Filter isOpen={isFilterMenuOpen} setIsOpen={setIsFilterMenuOpen}
         filterState={filterState} filterDispatch={filterDispatch}
-        handleFilterData={handleFilterData} setWillFilterData={setWillFilterData}
+        scrollHandler={scrollHandler} setWillFilterData={setWillFilterData}
       />
 
 
