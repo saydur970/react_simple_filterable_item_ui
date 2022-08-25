@@ -16,7 +16,8 @@ export const SearchBar: FC<IComp> =
 ({ setIsFilterMenuOpen, filterState, filterDispatch }) => {
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    filterDispatch({ type: 'name', payload: event.target.value })
+    filterDispatch({type: 'page', payload: 1});
+    filterDispatch({ type: 'name', payload: event.target.value });
   }
 
   return (
