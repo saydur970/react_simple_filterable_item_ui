@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Box from '@mui/material/Box';
+import {Box, InputLabel} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -9,6 +9,7 @@ interface IComp {
   optionList: string[];
   changeHandler: (val: string) => void;
   isDisable?: boolean;
+  disableTxt?: string;
 }
 
 // const ITEM_HEIGHT = 48;
@@ -35,7 +36,7 @@ interface IComp {
 
 
 export const InputSelectMultiple: FC<IComp> =
-  ({ value, optionList, changeHandler, isDisable }) => {
+  ({ value, optionList, changeHandler, isDisable, disableTxt }) => {
 
 
     const handleChange = (itemValue: string) => {
@@ -46,6 +47,15 @@ export const InputSelectMultiple: FC<IComp> =
     return (
       <Box sx={{ minWidth: 120, marginBottom: '2rem' }}>
         <FormControl fullWidth>
+
+          {
+            isDisable &&
+            <InputLabel id="demo-simple-select-label">
+              {disableTxt || 'disabled'}
+            </InputLabel>
+          }
+
+
           <Select
             multiple
             value={value}
@@ -56,6 +66,7 @@ export const InputSelectMultiple: FC<IComp> =
             MenuProps={{ keepMounted: true, disablePortal: true }}
             disabled={isDisable? true: false}
           >
+
             {
               optionList.map(el => (
                 <MenuItem key={el} value={el}

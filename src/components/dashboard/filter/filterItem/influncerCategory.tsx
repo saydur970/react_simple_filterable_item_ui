@@ -24,6 +24,7 @@ export const FilterInfluncerCategory: FC<IComp> = ({filterState, filterDispatch}
         optionList={data_IndustryCategoryList(filterState.industry.name)}
         changeHandler={changeHandler}
         isDisable={filterState.industry.name ? false: true}
+        disableTxt="First Select Influencer's Industry"
       />
 
    </ItemWrapper>
