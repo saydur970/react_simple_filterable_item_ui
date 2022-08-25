@@ -722,14 +722,14 @@ export const dataList: ty_dataItem[] = [
   },
   {
     id: 'user_33',
-    name: 'Taylor Swift',
+    name: 'Dua Lipa',
     image: '2.jpg',
     location: {
-      city: 'Pennsylvania',
-      country: 'USA'
+      city: 'London',
+      country: 'UK'
     },
     joined: "2014-10-01",
-    totalFollower: 702693,
+    totalFollower: 608633,
     industry: {
       name: 'Entertainment',
       category: 'Song'
