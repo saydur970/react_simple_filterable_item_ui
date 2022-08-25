@@ -40,6 +40,8 @@ const valueLabelFormat = (value: number) => {
 
 export const InputRange: FC<IComp> = ({ value, changeHandler }) => {
 
+  // console.log(value)
+
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === 'number') {
       changeHandler(newValue)

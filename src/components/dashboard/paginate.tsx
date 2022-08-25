@@ -82,7 +82,8 @@ export const Paginate: FC<IComp> =
           marginRight: '1rem',
           padding: '1rem',
           backgroundColor: el === currentPage ? 
-          theme.palette.highlight.main : 'transparent'
+          theme.palette.highlight.main : 'transparent',
+          color: theme.palette.txt.main
         }}
         disabled={currentTotalData < DATA_PER_PAGE_LIMIT && idx+1 >= currentPage}
       >

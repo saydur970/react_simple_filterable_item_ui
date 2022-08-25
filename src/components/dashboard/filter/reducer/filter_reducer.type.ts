@@ -13,6 +13,7 @@ export type ty_FilterReducer = {
   };
   totalFollower: number;
   social_media: ty_social_media|null;
+  isApplied: boolean;
 }
 
 export type ty_filter_DispatchAction =
@@ -28,4 +29,5 @@ export type ty_filter_DispatchAction =
   // { type: 'industry_category_remove', payload: number } |
 
   { type: 'totalFollower', payload: number }|
+  { type: 'apply', payload: boolean }|
   { type: 'reset' };

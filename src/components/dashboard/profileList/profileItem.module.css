@@ -1,11 +1,15 @@
 .mainParent {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  /* justify-content: center; */
+  /* justify-content: space-between; */
   flex-wrap: wrap;
 }
 
 .container {
+  /* margin: 0 0.5rem; */
+  /* margin-right: 1rem; */
   margin-top: 2rem;
 
   flex-grow: 0;
@@ -22,13 +26,19 @@
   }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 940px) {
   .container {
     flex-basis: 49%;
   }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 880px) {
+  .container {
+    flex-basis: 47%;
+  }
+}
+
+@media (max-width: 670px) {
   .mainParent {
     justify-content: center;
   }

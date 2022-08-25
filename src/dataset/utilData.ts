@@ -9,14 +9,14 @@ const categoryList:  { [key in ty_industry_name]: ty_industry_category[] } = {
 
   'Corporate': [ 'Technology', 'Automobile' ],
 
-  'Public figure': [ 'Politician' ],
+  'Public figure': [ 'Politician', 'Writter' ],
 
 }
 
 export const DATA_PER_PAGE_LIMIT = 6;
 
 export const data_CountryList: ty_countryList[] = [
-  'Croatia', 'UK', 'USA', 'Bangladesh', 'Spain', 'Jamaica', 'India'
+  'UK', 'USA', 'Germany', 'Brazil', 'Bangladesh', 'Spain', 'Jamaica', 'India'
 ]
 
 export const data_IndustryNameList: ty_industry_name[] = [

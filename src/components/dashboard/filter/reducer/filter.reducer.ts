@@ -1,6 +1,7 @@
 import { ty_filter_DispatchAction, ty_FilterReducer } from './filter_reducer.type';
 
 export const filterDataReducerInitial: ty_FilterReducer = {
+  isApplied: false,
   name: '',
   page: 1,
   country: null,
@@ -10,13 +11,24 @@ export const filterDataReducerInitial: ty_FilterReducer = {
     name: null,
     category: []
   },
-  totalFollower: 100000
+  totalFollower: 1000000
+  // totalFollower: 100000
 };
 
 export const filterDataReducer = 
 (state:ty_FilterReducer, action: ty_filter_DispatchAction): ty_FilterReducer => {
 
   switch(action.type) {
+
+    // ==================== Handle name =========================
+    case 'apply': {
+
+      return {
+        ...state,
+        isApplied: action.payload
+      }
+
+    }
 
     // ==================== Handle name =========================
     case 'name': {

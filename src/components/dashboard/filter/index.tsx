@@ -16,18 +16,22 @@ interface IComp {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   filterState: ty_FilterReducer;
   filterDispatch: Dispatch<ty_filter_DispatchAction>;
-  handleFilterData: () => void;
+  handleFilterData: (isApplied?: boolean) => void;
+  setWillFilterData: Dispatch<SetStateAction<boolean>>
 }
 
 export const Filter: FC<IComp> = 
-({ isOpen, setIsOpen, filterState, filterDispatch, handleFilterData }) => {
+({ isOpen, setIsOpen, filterState, filterDispatch, setWillFilterData }) => {
 
   const closeHandler = () => {
     setIsOpen(false);
   }
 
   const applyHandler = () => {
-    handleFilterData();
+    filterDispatch({type: 'page', payload: 1});
+    filterDispatch({type: 'apply', payload: true});
+    // handleFilterData(true);
+    setWillFilterData(true);
     closeHandler();
   }
 

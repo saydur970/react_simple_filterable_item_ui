@@ -12,6 +12,8 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { themeColor } from '../../../lib/mui/color';
 import { useUITheme } from '../../../hooks/useUITheme';
+import { numberKconverter } from '../../../utils/numberKconerter';
+import { convertMeaningfulDate } from '../../../utils/convertMeaningfulDate';
 
 interface IComp {
   item: {
@@ -87,7 +89,7 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
       >
           <Grid item xs={12} >
             <Typography variant="h5" align="center"
-              sx={{fontSize: '1.4rem', marginBottom: '0.5rem', 
+              sx={{fontSize: '1.2rem', marginBottom: '0.5rem', 
               color: isDark ? '#95B3CD': themeColor.primary
             }}
             >
@@ -95,7 +97,7 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} >
-            <Typo txt={key} align="center" size="1.2rem"
+            <Typo txt={key} align="center" size="1.1rem"
               margin="0rem" 
             />
           </Grid>
@@ -115,7 +117,7 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
             {/* ======================= profile image ======================= */}
             <Grid item xs={12} container justifyContent="center" alignContent="center"
               sx={{ margin: '3rem 0'}} >
-              <img src="/images/users/1.jpg" alt={item.name} 
+              <img src={`/images/users/${item.image}`} alt={item.name} 
                 className={classes.profileImage} 
               />
             </Grid>
@@ -149,7 +151,8 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
               >
                 <AccessTimeIcon sx={{ color: theme.palette.txt.main }} />
               </IconButton>
-              <Typo size="1.4rem" txt={`Joined On: ${item.joined}`}
+              <Typo size="1.4rem" 
+                txt={`Joined On: ${convertMeaningfulDate(item.joined)}`}
                 align="center" color="#637381" dotted={true}
               />
             </Grid>
@@ -183,7 +186,8 @@ export const ProfileItem: FC<IComp> = ({ item }) => {
             <Grid item xs={12} container justifyContent="center" sx={{ marginTop: '1.5rem' }} >
               {textWithKeyValueRender({
                 key: 'Followers',
-                value: item.totalFollower.toString()
+                value: 
+                `${numberKconverter({num: item.totalFollower, to: 'k'})}K`
               })}
               {textWithKeyValueRender({
                 key: 'Categories',
