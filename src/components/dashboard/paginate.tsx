@@ -79,8 +79,14 @@ export const Paginate: FC<IComp> =
 
       <IconButton key={idx} onClick={()=> targetPageHandler(idx)}
         sx={{
-          marginRight: '1rem',
-          padding: '1rem',
+          marginRight: {
+            xs: '0.8rem',
+            sm: '1rem'
+          },
+          padding: {
+            xs: '1rem 0.5rem',
+            sm: '1rem'
+          },
           backgroundColor: el === currentPage ? 
           theme.palette.highlight.main : 'transparent',
           color: theme.palette.txt.main
@@ -99,14 +105,14 @@ export const Paginate: FC<IComp> =
   return (
     <Grid item xs={12} container sx={{marginTop: '5rem'}} >
 
-      <Grid item xs={2} >
+      <Grid item xs={1} sm={2} >
         <IconButton onClick={prevHandler} disabled={currentPage <= 1} >
           <ArrowBackIcon sx={{transform: 'scale(1.2)', marginRight: '0.5rem'}} /> Previous
         </IconButton>
       </Grid>
 
 
-      <Grid item xs={8} container justifyContent="center" >
+      <Grid item xs={10} sm={8} container justifyContent="center" >
 
         {
           buttonListRender()
@@ -123,7 +129,7 @@ export const Paginate: FC<IComp> =
       </Grid>
 
 
-      <Grid item xs={2} container justifyContent="flex-end" >
+      <Grid item xs={1} sm={2} container justifyContent="flex-end" >
         <IconButton onClick={nextHandler} 
           disabled={currentTotalData < DATA_PER_PAGE_LIMIT}
         >
